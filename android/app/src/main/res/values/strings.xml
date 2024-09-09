@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">rncap</string>
+    <string name="title_activity_main">rncap</string>
+    <string name="package_name">com.jnesis.rncap</string>
+    <string name="custom_url_scheme">com.jnesis.rncap</string>
+</resources>
