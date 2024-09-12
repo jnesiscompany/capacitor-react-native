@@ -1,7 +1,15 @@
+ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
 
-platform :ios, '13.0'
+platform :ios, min_ios_version_supported
 use_frameworks!
+prepare_react_native_project!
 
 # workaround to avoid Xcode caching of Pods that requires
 # Product -> Clean Build Folder after new Cordova plugins installed
@@ -20,8 +28,23 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
-end
+  config = use_native_modules!
 
-post_install do |installer|
-  assertDeploymentTarget(installer)
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :hermes_enabled => false,
+    :app_path => "#{Pod::Config.instance.installation_root}/../.."
+  )
+
+
+  post_install do |installer|
+    assertDeploymentTarget(installer)
+    react_native_post_install(
+          installer,
+          config[:reactNativePath],
+          :mac_catalyst_enabled => false,
+          # :ccache_enabled => true
+        )
+  end
 end
