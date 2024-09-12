@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 
 const HelloWorld = () => {
   return (
-    <View>
+    <SafeAreaView style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       <Text>Hello, world!</Text>
-    </View>
+    </SafeAreaView>
   );
 };
+
+export default HelloWorld;

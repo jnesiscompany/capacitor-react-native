@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import RN from '../../rn/plugin';
 
 @Component({
   selector: 'app-home',
@@ -9,4 +10,7 @@ export class HomePage {
 
   constructor() {}
 
+  async openRnView(): Promise<void> {
+    await RN.openView();
+  }
 }
